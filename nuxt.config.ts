@@ -37,6 +37,12 @@ export default defineNuxtConfig({
           async: true,
         },
         {
+          type: 'text/javascript',
+          crossorigin: '',
+          async: true,
+          src: 'https://cdn.lordicon.com/bhenfmcm.js',
+        },
+        {
           src: 'https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js',
           type: 'text/javascript',
           crossorigin: '',
@@ -109,8 +115,8 @@ export default defineNuxtConfig({
       ],
       // lang: "en",
       // useWebmanifestExtension: false,
-      start_url: "/",
-      display: "standalone",
+      start_url: '/',
+      display: 'standalone',
       // background_color: "#fff3e0",
       // theme_color: "#fff3e0",
     },

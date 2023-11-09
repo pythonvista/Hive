@@ -7,6 +7,7 @@ export const useLoungeStore = defineStore({
       accountType: '',
       activeUser: '',
       userData: {},
+      systemLanguage: '',
       routeState: '',
       countries: [
         'Afghanistan',
@@ -589,6 +590,10 @@ export const useLoungeStore = defineStore({
     },
     SetUserData(data) {
       this.userData = data;
+    },
+    SetSystemLang(data) {
+      this.systemLanguage = data;
+      localStorage.setItem('systemLang', data);
     },
     SetAccountType(data) {
       this.userData = data;
