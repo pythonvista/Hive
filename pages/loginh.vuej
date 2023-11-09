@@ -1,0 +1,711 @@
+<!-- <template>
+  <nuxt-layout name="login">
+    <div class="w-full wraps bg-white h-full">
+      <button id="mapps" class="hidden"></button>
+      <q-stepper
+        class="w-full h-full shadow-none"
+        v-model="step"
+        ref="stepper"
+        active-color="purple"
+        done-color="purple"
+        animated
+        flat
+        contracted
+      >
+        <q-step
+          style="height: 100% !important"
+          class="h-[100%]"
+          :name="1"
+          icon="call"
+          :done="step > 1"
+        >
+          <div class="flex h-full flex-col justify-start items-start gap-3">
+            <div class="w-full flex justify-center items-center">
+              <img width="200" src="@/assets/img/verify.svg" alt="" />
+            </div>
+
+            <p class="font-bold text-2xl">Whats your number?</p>
+            <p class="text-xl font-light">
+              We'll send you a verification code so maek sure its your number.
+            </p>
+
+            <div class="w-full">
+              <label
+                for="card"
+                class="block text-sm text-gray-500 dark:text-gray-300"
+                >Phone Number</label
+              >
+
+              <div class="relative flex w-full items-center mt-2">
+                <span class="absolute flex justify-center items-center">
+                  <svg
+                    class="mx-3"
+                    width="25"
+                    height="25"
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-name="Layer 1"
+                    viewBox="0 0 130 130"
+                    id="flag"
+                  >
+                    <rect
+                      width="50.48"
+                      height="81.82"
+                      x="39.76"
+                      y="24.09"
+                      fill="#e1e6e9"
+                    ></rect>
+                    <rect
+                      width="42.67"
+                      height="81.82"
+                      x="1"
+                      y="24.09"
+                      fill="#018752"
+                    ></rect>
+                    <rect
+                      width="42.67"
+                      height="81.82"
+                      x="86.33"
+                      y="24.09"
+                      fill="#018752"
+                    ></rect>
+                  </svg>
+                </span>
+
+                <input
+                  type="text"
+                  placeholder="23480000000"
+                  v-model="phone"
+                  class="block w-full text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg pr-5 rtl:pr-11 placeholder:text-left pl-11 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+            </div>
+            <p class="text-sm py-3 text-blue-400 font-italic">
+              Note: use the same number as your bvn
+            </p>
+            <q-btn
+              type="button"
+              @click="SendOtp"
+              :loading="loading"
+              :disable="!isPhone"
+              id="mapps"
+              class="bg-purple-600 w-full flex gap-x-3 text-sm sm:text-base items-center justify-center text-white rounded-lg duration-300 transition-colors border border-transparent px-8 py-2.5"
+            >
+              Next
+            </q-btn>
+          </div>
+        </q-step>
+
+        <q-step
+          :name="2"
+          :done="step > 2"
+          style="height: 100% !important"
+          class="h-[100%]"
+        >
+          <div class="flex h-full flex-col justify-start items-start gap-3">
+            <div class="w-full flex justify-center items-center">
+              <img width="200" src="@/assets/img/otp.jpg" alt="" />
+            </div>
+
+            <p class="font-bold text-2xl">Confirm phone number</p>
+            <p class="text-xl font-light">
+              Please enter the code sent to the number entered.
+            </p>
+
+            <div style="display: flex; flex-direction: row">
+              <v-otp-input
+                ref="otpInput"
+                v-model:value="bindModal"
+                input-classes="otp-input"
+                separator="-"
+                :num-inputs="6"
+                :should-auto-focus="true"
+                input-type="letter-numeric"
+                :conditionalClass="[
+                  'one',
+                  'two',
+                  'three',
+                  'four',
+                  'five',
+                  'six',
+                ]"
+                :placeholder="['*', '*', '*', '*', '*', '*']"
+                @on-change="handleOnChange"
+                @on-complete="handleOnComplete"
+              />
+            </div>
+            <p class="text-sm py-3 text-black font-bold">
+              Didn't receive a code?
+              <span class="p-1 rounded bg-blue-600 text-white px-2"
+                >resend</span
+              >
+            </p>
+            <q-btn
+              @click="VerifyOtp"
+              :loading="loading2"
+              id="mapps"
+              :disable="this.bindModal.toString().length < 6"
+              class="bg-purple-600 w-full flex gap-x-3 text-sm sm:text-base items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-8 py-2.5"
+            >
+              Next
+            </q-btn>
+          </div>
+        </q-step>
+
+        <q-step :name="3" :done="step > 2" style="height: 100%">
+          <div class="bg-white">
+            <div class="flex h-full flex-col justify-start items-start gap-3">
+              <p class="font-bold text-2xl">Lets Know You</p>
+              <p class="text-xl font-light">Please select an account type.</p>
+              <div class="w-full flex justify-start items-center">
+                <q-btn-toggle
+                  v-model="dform.account"
+                  push
+                  glossy
+                  toggle-color="purple"
+                  :options="[
+                    { label: 'Artisans', value: 'artisan' },
+                    { label: 'Customer', value: 'client' },
+                  ]"
+                >
+                </q-btn-toggle>
+              </div>
+              <div class="w-full pt-3">
+                <label for="card" class="block text-sm text-gray-500"
+                  >Full Name</label
+                >
+                <div class="relative flex w-full items-center mt-2">
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    v-model="dform.fullName"
+                    class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 pr-5 rtl:pr-11 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+              </div>
+              <div class="w-full pt-3">
+                <label for="card" class="block text-sm text-gray-500"
+                  >Username</label
+                >
+                <div class="relative flex w-full items-center mt-2">
+                  <input
+                    type="text"
+                    placeholder="@john_name"
+                    v-model="dform.username"
+                    class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 rtl:pl-5 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+              </div>
+              <div class="w-full pt-3">
+                <label for="card" class="block text-sm text-gray-500"
+                  >Email</label
+                >
+                <div class="relative flex w-full items-center mt-2">
+                  <input
+                    type="email"
+                    placeholder="johndoe@gmail.com"
+                    v-model="dform.email"
+                    class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 rtl:pl-5 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+              </div>
+              <div class="w-full py-3">
+                <label
+                  for="about"
+                  class="block text-sm font-medium leading-6 text-gray-900"
+                  >Location</label
+                >
+                <q-checkbox
+                  class="py-3 w-full"
+                  @update:model-value="GetPosition"
+                  v-model="dform.usegeolocation"
+                  dense
+                  label="Use current location"
+                  color="purple"
+                />
+                <q-select
+                  filled
+                  :disable="usegeolocation"
+                  v-model="searchQuery"
+                  use-input
+                  @update:model-value="UpdateLocation"
+                  input-debounce="0"
+                  :label="searchPlaceholder"
+                  :options="searchData"
+                  @filter="filterFn"
+                  outlined
+                  behavior="dialog"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
+              </div>
+              <q-btn
+                :disable="!isValid"
+                @click="SaveProfile"
+                :loading="loading"
+                class="bg-purple-600 w-full flex gap-x-3 text-sm sm:text-base items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-8 py-2.5"
+              >
+                Next
+              </q-btn>
+            </div>
+          </div>
+        </q-step>
+
+        <q-step :name="4" style="height: 100%">
+          <div class="bg-white">
+            <div
+              class="flex h-full flex-col text-center justify-center items-start gap-3"
+            >
+              <p class="font-bold text-center w-full text-2xl">Almost Done!</p>
+              <p class="text-xl text-center w-full font-light">
+                Lets customize your prefrences.
+              </p>
+
+              <div
+                class="w-full px-3 mt-4 justify-center items-center flex-col gap-3 flex"
+              >
+                <q-avatar class="relative" size="100px" rounded>
+                  <img
+                    v-if="dform.profile"
+                    class="shadow-md"
+                    :src="dform.profile"
+                  />
+                  <img v-else class="shadow-md" :src="tempurl" />
+
+                  <q-btn
+                    @click="FireInput"
+                    color="black"
+                    round
+                    :loading="imgloading"
+                    class="absolute cursor-pointer bg-black p-2 rounded-full -bottom-4 -right-4 z-[10]"
+                    icon="add"
+                    size=".3em"
+                  />
+                </q-avatar>
+                <input
+                  class="bg-transparent hidden opacity-0 w-20 cursor-pointer upbtn"
+                  ref="fileinput"
+                  @change="UploadImage(index)"
+                  type="file"
+                  id="input-120"
+                  aria-describedby="input-120-messages"
+                  accept=".jpg,.png,.jpeg,.jiff"
+                />
+              </div>
+              <div v-if="dform.account == 'artisan'" class="w-full mt-4">
+                <label
+                  for="card"
+                  class="block text-sm px-2 py-3 text-left w-full text-gray-500"
+                  >Occupation</label
+                >
+                <q-select
+                  filled
+                  v-model="dform.occupation"
+                  :options="services"
+                  label="Ocuppation"
+                  dense
+                  class="w-full"
+                />
+              </div>
+              <div
+                v-if="dform.occupation == 'others'"
+                class="relative flex w-full items-center mt-2"
+              >
+                <input
+                  type="text"
+                  placeholder="Mechanic"
+                  v-model="dform.otherOccupation"
+                  class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 pr-5 rtl:pr-11 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              <div
+                v-if="dform.account == 'artisan'"
+                class="relative grid gap-3 grid-cols-2 place-items-center w-full items-center mt-2"
+              >
+                <label
+                  for="card"
+                  class="block col-span-2 text-sm px-2 py-3 text-left w-full text-gray-500"
+                  >Pls indicate your minimum and maximum charge in
+                  Naira(₦)</label
+                >
+                <input
+                  type="number"
+                  placeholder="Minimum Charge"
+                  v-model="dform.minCharge"
+                  class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 pr-5 rtl:pr-11 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                <input
+                  type="number"
+                  placeholder="Maximum Charge"
+                  v-model="dform.maxCharge"
+                  class="block w-full placeholder:text-left py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-3 pr-5 rtl:pr-11 dark:text-gray-300 focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+              </div>
+              <div v-if="dform.account == 'client'" class="w-full mt-4">
+                <label
+                  for="card"
+                  class="block text-sm px-2 py-3 text-left w-full text-gray-500"
+                  >Select atleast 5 services you might need.</label
+                >
+                <div class="q-gutter-sm">
+                  <q-checkbox
+                    v-for="(i, index) in services.slice(0, 10)"
+                    :key="index"
+                    v-model="dform.services"
+                    :val="i"
+                    :label="i"
+                    color="purple"
+                  />
+                </div>
+              </div>
+
+              <q-btn
+                @click="Finish"
+                :loading="loading"
+                class="bg-purple-600 w-full flex gap-x-3 text-sm sm:text-base items-center justify-center text-white rounded-lg hover:bg-[#1877F2]/80 duration-300 transition-colors border border-transparent px-8 py-2.5"
+              >
+                Finish
+              </q-btn>
+            </div>
+          </div>
+        </q-step>
+      </q-stepper>
+    </div>
+  </nuxt-layout>
+</template>
+
+<script>
+import { RecaptchaVerifier } from 'firebase/auth';
+
+import VOtpInput from 'vue3-otp-input';
+import { ref } from 'vue';
+let appVerifier;
+let confirmationResult;
+let crud;
+let authfunc;
+let nuxt;
+let store;
+export default {
+  data: () => ({
+    phone: '',
+    otpbox: false,
+    otp: '',
+    step: 1,
+    tempurl: 'https://cdn.quasar.dev/img/avatar.png',
+    loading: false,
+    loading2: false,
+    otpInput: null,
+    bindModal: '',
+    account: '',
+    searchQuery: '',
+    dform: {
+      services: [],
+    },
+    imgloading: false,
+    searchData: [],
+    searchPlaceholder: 'Search Location',
+  }),
+  components: {
+    VOtpInput,
+  },
+  setup() {},
+  methods: {
+    async SendOtp() {
+        this.INit();
+      this.loading = true;
+      try {
+        confirmationResult = await authfunc.Phone(
+          '+' + this.phone,
+          appVerifier
+        );
+        ShowSnack('otp sent', 'positive');
+        this.step = 2;
+        this.loading = false;
+      } catch (err) {
+        this.loading = false;
+        ShowSnack('Error Sending Otp', 'negative');
+      }
+    },
+    async VerifyOtp() {
+    
+      try {
+        this.loading2 = true;
+        const result = await confirmationResult.confirm(
+          this.bindModal.toString()
+        );
+        const user = result.user;
+        const isReg = await this.CheckUser(user.phoneNumber);
+        if (isReg.status == 'complete') {
+          ShowSnack('Login Successfull', 'positive');
+          store.SetActiveUser(user.phoneNumber, true);
+          this.loading2 = false;
+          this.$router.push({ path: '/dashbord' });
+          return;
+        }
+        if (isReg.status == 'incomplete') {
+          ShowSnack('Lets Finish Setting Up Your Profile', 'positive');
+          store.SetActiveUser(user.phoneNumber, true);
+          this.dform = isReg.data;
+          this.searchQuery = this.dform?.address;
+          this.loading2 = false;
+          this.step = 3;
+          return;
+        }
+        if (isReg.status == 'signup') {
+          await crud.addDocWithId('USERS', user.phoneNumber, {
+            phone: user.phoneNumber,
+            fullName: '',
+            email: '',
+            account: 'basic',
+            uid: user.phoneNumber,
+            profileComplete: false,
+            bvn: '',
+            bvnVerified: false,
+            dob: '',
+            nationality: '',
+            state: '',
+            lga: '',
+            location: '',
+            coords: {},
+            services: [],
+            postcode: '',
+          });
+          store.SetActiveUser(user.phoneNumber, true);
+          this.loading2 = false;
+          this.step = 3;
+          return;
+        }
+      } catch (err) {
+        console.log(err);
+        this.loading2 = false;
+        ShowSnack('Error verifying otp', 'negative');
+      }
+    },
+    async SaveProfile() {
+      try {
+        this.loading = true;
+        await crud.updateDocument('USERS', this.activeUser, this.dform);
+        (this.loading = false),
+          ShowSnack('Profile Updated Successfully.', 'positive');
+        this.step = 4;
+      } catch (err) {
+        this.loading = false;
+        console.log(err);
+        ShowSnack('Error Saving Changes', 'negative');
+      }
+    },
+    async Finish() {
+      try {
+        this.loading = true;
+        await crud.updateDocument('USERS', this.activeUser, {
+          ...this.dform,
+          profileComplete: true,
+        });
+        (this.loading = false), ShowSnack('Onboarding Completed.', 'positive');
+        this.$router.push({ path: '/dashboard' });
+      } catch (err) {
+        this.loading = false;
+        console.log(err);
+        ShowSnack('Error Saving Changes', 'negative');
+      }
+    },
+    INit() {
+      appVerifier = window.recaptchaVerifier = new RecaptchaVerifier(
+        'mapps',
+        {
+          size: 'invisible',
+          callback: (response) => {},
+        },
+        authfunc.UserState()
+      );
+    },
+    handleOnComplete(value) {
+      this.VerifyOtp();
+    },
+    async CheckUser(user) {
+      try {
+        const res = await crud.getSingleDoc('USERS', user);
+        const data = res.data();
+        if (data.uid && data.profileComplete) {
+          return { status: 'complete', data: data };
+        } else if (data.uid && !data.profileComplete) {
+          return { status: 'incomplete', data: data };
+        } else {
+          return { status: 'signup' };
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    handleOnChange(value) {
+      console.log('OTP changed: ', value);
+      console.log(this.bindModal);
+    },
+    clearInput() {
+      this.otpInput?.clearInput();
+    },
+    fillInput(value) {
+      console.log(value);
+      this.otpInput?.fillInput(value);
+    },
+    async GetPosition(v) {
+      try {
+        nuxt = useNuxtApp();
+        if (v) {
+          const ldata = await nuxt.$VueGeolocation.getLocation({});
+          const { data } = await useLazyFetch(
+            `/api/location?lng=${ldata.lng}&lat=${ldata.lat}`
+          );
+          const results =
+            data._rawValue.features.length > 0
+              ? data._rawValue.features[0]
+              : {};
+          this.searchQuery = results?.place_name_en;
+          this.dform.address = results?.place_name_en;
+          this.dform.center = results?.center;
+          this.dform.coords = results?.geometry?.coordinates;
+          this.dform.city =
+            results?.context.length > 0 ? results?.context[0].text : '';
+          this.dform.country =
+            results?.context.length > 1 ? results?.context[1].text : '';
+          this.dform.postcode = results?.id.split('.')[1];
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    UpdateLocation() {
+      this.dform.postcode = this.searchQuery?.id.split('.')[1];
+      this.dform.address = this.searchQuery?.place_name_en;
+      this.dform.center = this.searchQuery?.center;
+      this.dform.coords = this.searchQuery?.geometry?.coordinates;
+      this.dform.city =
+        this.searchQuery?.context.length > 0
+          ? this.searchQuery?.context[0].text
+          : '';
+      this.dform.country =
+        this.searchQuery?.context.length > 1
+          ? this.searchQuery?.context[1].text
+          : '';
+    },
+    filterFn(val, update) {
+      if (val === '') {
+        update(() => {
+          this.options = [];
+        });
+        return;
+      }
+
+      update(async () => {
+        const { data } = await useLazyFetch(`/api/search?query=${val}`);
+        this.searchData = data._rawValue.features.map((m) => {
+          return {
+            ...m,
+            label: m?.place_name_en ? m.place_name_en : '',
+            value: m?.place_name_en ? m.place_name_en : '',
+          };
+        });
+        console.log(this.searchData);
+      });
+    },
+    FireInput() {
+      const input = this.$refs.fileinput;
+      input.click();
+    },
+    async UploadImage() {
+      const input = this.$refs.fileinput;
+      let file = input.files[0];
+      if (file == null) {
+        return;
+      }
+      try {
+        this.imgloading = true;
+        const res = await nuxt.$UploadImg(file);
+        this.dform.profile = res.url;
+        this.imgloading = false;
+      } catch (err) {
+        console.log(err);
+        this.imgloading = false;
+      }
+    },
+  },
+  computed: {
+    isValid() {
+      if (
+        this.dform.fullName &&
+        this.dform.username &&
+        this.dform.email &&
+        this.dform.address &&
+        this.dform.postcode &&
+        this.dform.account
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    services() {
+      return store.services;
+    },
+    isPhone() {
+      if (this.phone && this.phone.length == 13) {
+        return true;
+      }
+      return false;
+    },
+    activeUser() {
+      return store.activeUser;
+    },
+  },
+  created() {
+    nuxt = useNuxtApp();
+    store = useLoungeStore();
+    crud = nuxt.$crud;
+    authfunc = nuxt.$authfunc;
+     const { $listen } = useNuxtApp();
+      $listen('finish', (data) => {
+      this.step = 3
+      this.dform = data
+    });
+  },
+  mounted() {
+    
+  },
+};
+</script>
+
+<style>
+.otp-input {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  margin: 0 5px;
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+/* Background colour of an input field with value */
+.otp-input.is-complete {
+  background-color: #e4e4e4;
+}
+.otp-input::-webkit-inner-spin-button,
+.otp-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input::placeholder {
+  font-size: 15px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.wraps {
+  overflow-y: scroll !important;
+}
+</style> -->

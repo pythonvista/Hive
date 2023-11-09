@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.giggle_six.twa",
+        "sha256_cert_fingerprints": ["CF:9B:94:74:0D:D5:B5:07:0E:2A:D2:C1:7E:6F:C3:9C:C8:34:98:E4:31:74:62:06:E8:F7:20:19:B1:5B:C4:96"]
+      }
+    }]
