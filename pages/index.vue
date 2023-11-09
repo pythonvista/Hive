@@ -27,10 +27,12 @@ export default {
   created() {
     store = useLoungeStore();
     console.log(store.systemLanguage);
+  },
+
+  mounted() {
     let lang = localStorage.getItem('systemLang') || '';
     store.SetSystemLang(lang);
   },
-  mounted() {},
   methods: {},
 };
 </script>
