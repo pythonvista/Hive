@@ -3,7 +3,9 @@
     class="h-[88vh] overflow-hidden overflow-y-scroll flex flex-col items-center gap-4 justify-center"
   >
     <img class="w-[70%]" src="@/assets/img/logo_full.png" alt="" />
+    <UtilsHeading v-if="Lang" :title="'Choose Preference'"></UtilsHeading>
     <HomeLanguageSelect v-if="!Lang"></HomeLanguageSelect>
+
     <HomeGetStarted v-else></HomeGetStarted>
   </div>
 </template>
