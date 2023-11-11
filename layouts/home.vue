@@ -1,17 +1,17 @@
 <template>
-    <div class="h-screen overflow-hidden">
-        <UtilsNavigator></UtilsNavigator>
-       <slot/>
-       <UtilsFooter></UtilsFooter>
-    </div>
+  <div class="h-screen relative home_wrap">
+    <UtilsNavigator class="sticky top-0 left-0"></UtilsNavigator>
+    <slot />
+    <UtilsFooter></UtilsFooter>
+  </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
+<style scoped>
+.home_wrap {
+  overflow-y: scroll !important;
+}
 </style>

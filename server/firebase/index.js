@@ -34,185 +34,184 @@ import {
   uploadBytes,
   deleteObject,
 } from 'firebase/storage';
- const firebaseConfig = {
-   apiKey: 'AIzaSyAY1aJb8wyD7jA8hvjkDulByYqNsE0qBgY',
-   authDomain: 'giggle-80027.firebaseapp.com',
-   projectId: 'giggle-80027',
-   storageBucket: 'giggle-80027.appspot.com',
-   messagingSenderId: '391096547039',
-   appId: '1:391096547039:web:cefaa1103d06c6e3af1b6a',
-   measurementId: 'G-91G6MJME3G',
- };
- const app = initializeApp(firebaseConfig);
- const auth = getAuth(app);
- const db = getFirestore(app);
- const storage = getStorage(app);
- function AuthFunc() {
-   this.signup = (email, password) => {
-     let data = createUserWithEmailAndPassword(auth, email, password);
-     return data;
-   };
+const firebaseConfig = {
+  apiKey: 'AIzaSyDXmRG0FHQUENdNt69IBUBvPELBsoxeZVE',
+  authDomain: 'hive-3fea4.firebaseapp.com',
+  projectId: 'hive-3fea4',
+  storageBucket: 'hive-3fea4.appspot.com',
+  messagingSenderId: '724300980315',
+  appId: '1:724300980315:web:2e49f38c9f98dac22b5f7e',
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+function AuthFunc() {
+  this.signup = (email, password) => {
+    let data = createUserWithEmailAndPassword(auth, email, password);
+    return data;
+  };
 
-   this.login = (email, password) => {
-     let data = signInWithEmailAndPassword(auth, email, password);
-     return data;
-   };
-   this.signout = () => {
-     let data = signOut(auth);
-     return data;
-   };
-   this.reset = (email) => {
-     const res = sendPasswordResetEmail(auth, email);
-     return res;
-   };
+  this.login = (email, password) => {
+    let data = signInWithEmailAndPassword(auth, email, password);
+    return data;
+  };
+  this.signout = () => {
+    let data = signOut(auth);
+    return data;
+  };
+  this.reset = (email) => {
+    const res = sendPasswordResetEmail(auth, email);
+    return res;
+  };
 
-   this.verifyemail = (email) => {
-     const res = sendEmailVerification(auth, email);
-     return res;
-   };
+  this.verifyemail = (email) => {
+    const res = sendEmailVerification(auth, email);
+    return res;
+  };
 
-   this.verifycode = (code) => {
-     const res = verifyPasswordResetCode(auth, code);
-     return res;
-   };
+  this.verifycode = (code) => {
+    const res = verifyPasswordResetCode(auth, code);
+    return res;
+  };
 
-   this.confirmreset = (code, newpassword) => {
-     const res = confirmPasswordReset(auth, code, newpassword);
-     return res;
-   };
-   this.changeEmail = (email, curruser) => {
-     const data = updateEmail(curruser, email);
-     return data;
-   };
-   this.changePassword = (password, curruser) => {
-     const data = updatePassword(curruser, password);
-     return data;
-   };
+  this.confirmreset = (code, newpassword) => {
+    const res = confirmPasswordReset(auth, code, newpassword);
+    return res;
+  };
+  this.changeEmail = (email, curruser) => {
+    const data = updateEmail(curruser, email);
+    return data;
+  };
+  this.changePassword = (password, curruser) => {
+    const data = updatePassword(curruser, password);
+    return data;
+  };
 
-   this.UserState = () => {
-     return auth;
-   };
- }
+  this.UserState = () => {
+    return auth;
+  };
+}
 
- function CRUD() {
-   this.addDocWithId = (dbname, userId, arrayinfo) => {
-     let data = setDoc(doc(db, dbname, userId), {
-       ...arrayinfo,
-       CreatedAt: serverTimestamp(),
-     });
-     return data;
-   };
+function CRUD() {
+  this.addDocWithId = (dbname, userId, arrayinfo) => {
+    let data = setDoc(doc(db, dbname, userId), {
+      ...arrayinfo,
+      CreatedAt: serverTimestamp(),
+    });
+    return data;
+  };
 
-   this.addDocWithoutId = (dbname, arrayinfo) => {
-     let collRef = collection(db, dbname);
-     let data = addDoc(collRef, {
-       ...arrayinfo,
-       CreatedAt: serverTimestamp(),
-     });
-     return data;
-   };
+  this.addDocWithoutId = (dbname, arrayinfo) => {
+    let collRef = collection(db, dbname);
+    let data = addDoc(collRef, {
+      ...arrayinfo,
+      CreatedAt: serverTimestamp(),
+    });
+    return data;
+  };
 
-   this.getSingleDoc = (dbname, user_id) => {
-     let res = getDoc(doc(db, dbname, user_id));
-     return res;
-   };
+  this.getSingleDoc = (dbname, user_id) => {
+    let res = getDoc(doc(db, dbname, user_id));
+    return res;
+  };
 
-   this.getAllDoc = async (dbname, sort = '', uid = '') => {
-     let docs = [];
-     if (sort == 'asc') {
-       const q = query(collection(db, dbname), orderBy('CreatedAt', 'asc'));
-       const querySnapshot = await getDocs(q);
-       querySnapshot.forEach((doc) => {
-         docs.push({ ...doc.data(), docid: doc.id });
-       });
-     }
-     if (sort == 'desc') {
-       const q = query(collection(db, dbname), orderBy('CreatedAt', 'desc'));
-       const querySnapshot = await getDocs(q);
-       querySnapshot.forEach((doc) => {
-         docs.push({ ...doc.data(), docid: doc.id });
-       });
-     }
-     if (sort == '') {
-       const querySnapshot = await getDocs(collection(db, dbname));
-       querySnapshot.forEach((doc) => {
-         docs.push({ ...doc.data(), docid: doc.id });
-       });
-     }
+  this.getAllDoc = async (dbname, sort = '', uid = '') => {
+    let docs = [];
+    if (sort == 'asc') {
+      const q = query(collection(db, dbname), orderBy('CreatedAt', 'asc'));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), docid: doc.id });
+      });
+    }
+    if (sort == 'desc') {
+      const q = query(collection(db, dbname), orderBy('CreatedAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), docid: doc.id });
+      });
+    }
+    if (sort == '') {
+      const querySnapshot = await getDocs(collection(db, dbname));
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), docid: doc.id });
+      });
+    }
 
-     return docs;
-   };
+    return docs;
+  };
 
-   this.getAllQueryDoc = async (dbname, where1, where2, sort = '') => {
-     const docs = [];
+  this.getAllQueryDoc = async (dbname, where1, where2, sort = '') => {
+    const docs = [];
 
-     if (!sort) {
-       let q = query(collection(db, dbname), where(where1, '==', where2));
-       const querySnapshot = await getDocs(q);
-       querySnapshot.forEach((doc) => {
-         docs.push({ ...doc.data(), docid: doc.id });
-       });
-       return docs;
-     } else {
-       let q = query(
-         collection(db, dbname),
-         where(where1, '==', where2),
-         orderBy('CreatedAt', sort)
-       );
-       const querySnapshot = await getDocs(q);
-       querySnapshot.forEach((doc) => {
-         docs.push({ ...doc.data(), docid: doc.id });
-       });
-       return docs;
-     }
-   };
+    if (!sort) {
+      let q = query(collection(db, dbname), where(where1, '==', where2));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), docid: doc.id });
+      });
+      return docs;
+    } else {
+      let q = query(
+        collection(db, dbname),
+        where(where1, '==', where2),
+        orderBy('CreatedAt', sort)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        docs.push({ ...doc.data(), docid: doc.id });
+      });
+      return docs;
+    }
+  };
 
-   this.collectionSnapDocs = (dbname, where1, where2, where3, where4) => {
-     const q = query(
-       collection(db, dbname),
-       where(where1, '==', where2),
-       where(where3, '==', where4),
-       orderBy('CreatedAt', 'asc'),
-       limit(100)
-     );
-     return q;
-   };
+  this.collectionSnapDocs = (dbname, where1, where2, where3, where4) => {
+    const q = query(
+      collection(db, dbname),
+      where(where1, '==', where2),
+      where(where3, '==', where4),
+      orderBy('CreatedAt', 'asc'),
+      limit(100)
+    );
+    return q;
+  };
 
-   this.SnapDoc = (dbname, userId) => {
-     return doc(db, dbname, userId);
-   };
+  this.SnapDoc = (dbname, userId) => {
+    return doc(db, dbname, userId);
+  };
 
-   this.updateDocument = (dbname, userId, arrayinfo) => {
-     const selectedUser = doc(db, dbname, userId);
-     return updateDoc(selectedUser, arrayinfo);
-   };
+  this.updateDocument = (dbname, userId, arrayinfo) => {
+    const selectedUser = doc(db, dbname, userId);
+    return updateDoc(selectedUser, arrayinfo);
+  };
 
-   this.queryDoc = (dbname, where1, where2) => {
-     const collRef = collection(db, dbname);
-     const q = query(collRef, where(where1, '==', where2));
-     return q;
-   };
+  this.queryDoc = (dbname, where1, where2) => {
+    const collRef = collection(db, dbname);
+    const q = query(collRef, where(where1, '==', where2));
+    return q;
+  };
 
-   this.removeDoc = (dbname, db_id) => {
-     return deleteDoc(doc(db, dbname, db_id));
-   };
- }
+  this.removeDoc = (dbname, db_id) => {
+    return deleteDoc(doc(db, dbname, db_id));
+  };
+}
 
- let UploadImg = async (file) => {
-   const metadata = {
-     contentType: 'application/x-zip-compressed',
-   };
-   const uploadref = ref(storage, file.name);
-   const res = await uploadBytes(uploadref, file);
-   console.log(res);
-   const url = await getDownloadURL(ref(storage, res.metadata.fullPath));
-   let path = res.metadata.fullPath;
-   return { url, path };
- };
+let UploadImg = async (file) => {
+  const metadata = {
+    contentType: 'application/x-zip-compressed',
+  };
+  const uploadref = ref(storage, file.name);
+  const res = await uploadBytes(uploadref, file);
+  console.log(res);
+  const url = await getDownloadURL(ref(storage, res.metadata.fullPath));
+  let path = res.metadata.fullPath;
+  return { url, path };
+};
 
- let DeleteImg = async (path) => {
-   const desertRef = ref(storage, path);
-   await deleteObject(desertRef);
- };
- export const authfunc = new AuthFunc();
- export const crud = new CRUD();
+let DeleteImg = async (path) => {
+  const desertRef = ref(storage, path);
+  await deleteObject(desertRef);
+};
+export const authfunc = new AuthFunc();
+export const crud = new CRUD();

@@ -26,7 +26,6 @@ export default {
   },
   created() {
     store = useLoungeStore();
-    console.log(store.systemLanguage);
   },
 
   mounted() {

@@ -18,10 +18,23 @@
         <p class="text-2xl font-bold text-[#6f64f0]">{{ n.title }}</p>
         <p class="text-xs mx-3 font-medium text-center">{{ n.desc }}</p>
         <div class="flex p-3 justify-center items-center gap-3">
-          <q-btn color="#6f64f0" class="w-full rounded-lg bg-[#6f64f0]"
+          <q-btn
+            :to="{
+              path: '/login',
+              query: { type: n.title, avatar: n.avatar },
+            }"
+            color="#6f64f0"
+            class="w-full rounded-lg bg-[#6f64f0]"
             >Login as {{ n.title }}</q-btn
           >
-          <q-btn color="green" class="w-full" outline
+          <q-btn
+            :to="{
+              path: '/signup',
+              query: { type: n.title, avatar: n.avatar },
+            }"
+            color="green"
+            class="w-full"
+            outline
             >Register as {{ n.title }}</q-btn
           >
         </div>

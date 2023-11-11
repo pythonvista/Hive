@@ -39,13 +39,12 @@ import {
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const firebaseConfig = {
-    apiKey: 'AIzaSyAY1aJb8wyD7jA8hvjkDulByYqNsE0qBgY',
-    authDomain: 'giggle-80027.firebaseapp.com',
-    projectId: 'giggle-80027',
-    storageBucket: 'giggle-80027.appspot.com',
-    messagingSenderId: '391096547039',
-    appId: '1:391096547039:web:cefaa1103d06c6e3af1b6a',
-    measurementId: 'G-91G6MJME3G',
+    apiKey: 'AIzaSyDXmRG0FHQUENdNt69IBUBvPELBsoxeZVE',
+    authDomain: 'hive-3fea4.firebaseapp.com',
+    projectId: 'hive-3fea4',
+    storageBucket: 'hive-3fea4.appspot.com',
+    messagingSenderId: '724300980315',
+    appId: '1:724300980315:web:2e49f38c9f98dac22b5f7e',
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
@@ -172,7 +171,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         });
         return docs;
       }
-      
     };
 
     this.collectionSnapDocs = (dbname, where1, where2, where3, where4) => {
@@ -183,7 +181,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         orderBy('CreatedAt', 'asc'),
         limit(100)
       );
-      return q
+      return q;
     };
 
     this.SnapDoc = (dbname, userId) => {
