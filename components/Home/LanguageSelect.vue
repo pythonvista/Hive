@@ -54,7 +54,7 @@ export default {
     },
   },
   created() {
-    store = useLoungeStore();
+    store = useHiveStore();
   },
 };
 </script>

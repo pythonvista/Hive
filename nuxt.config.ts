@@ -59,7 +59,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'nuxt-swiper',
     'nuxt-quasar-ui',
-    '@vite-pwa/nuxt',
+    // '@vite-pwa/nuxt',
   ],
 
   pinia: {
@@ -81,51 +81,51 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vuetify'],
   },
-  pwa: {
-    // meta: {
-    //   name: "abc",
-    //   author: "abc Inc",
-    //   description: "abc desc",
-    // },
-    manifest: {
-      name: 'PropertyHive',
-      short_name: 'HIVE',
-      description: 'property hive',
-      icons: [
-        {
-          src: 'icons/64x64.png',
-          sizes: '64x64',
-          type: 'image/png',
-        },
-        {
-          src: 'icons/144x144.png',
-          sizes: '144x144',
-          type: 'image/png',
-        },
-        {
-          src: 'icons/192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: 'icons/512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-      ],
-      // lang: "en",
-      // useWebmanifestExtension: false,
-      start_url: '/',
-      display: 'standalone',
-      // background_color: "#fff3e0",
-      // theme_color: "#fff3e0",
-    },
-    workbox: {
-      navigateFallback: '/',
-    },
-    devOptions: {
-      enabled: true,
-      type: 'module',
-    },
-  },
+  // pwa: {
+  //   meta: {
+  //     name: "abc",
+  //     author: "abc Inc",
+  //     description: "abc desc",
+  //   },
+  //   manifest: {
+  //     name: 'PropertyHive',
+  //     short_name: 'HIVE',
+  //     description: 'property hive',
+  //     icons: [
+  //       {
+  //         src: 'icons/64x64.png',
+  //         sizes: '64x64',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'icons/144x144.png',
+  //         sizes: '144x144',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'icons/192x192.png',
+  //         sizes: '192x192',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'icons/512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //       },
+  //     ],
+  //     // lang: "en",
+  //     // useWebmanifestExtension: false,
+  //     start_url: '/',
+  //     display: 'standalone',
+  //     // background_color: "#fff3e0",
+  //     // theme_color: "#fff3e0",
+  //   },
+  //   workbox: {
+  //     navigateFallback: '/',
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     type: 'module',
+  //   },
+  // },
 });

@@ -1,23 +1,34 @@
 
 let store;
-export const AuthHandler = async (id, router) => {
+export const AuthHandler = async (id, token) => {
   let nuxt = useNuxtApp();
-  store = useLoungeStore();
-  let crud = nuxt.$crud;
+  store = useHiveStore();
   try {
-    store.SetActiveUser(id, true);
-    const res = await crud.getSingleDoc('USERS', id);
-    RouteUser(res.data().account, router);
-    store.SetUserData(res.data());
-    return { success: true };
+    
+    const res = await UseFetch.get(`/users/${id}`, { 'Authorization': token })
+    const data = await res.json()
+    console.log(data)
+    if (res.ok) {
+      store.SetActiveUser(id, true);
+      let userData = data.data
+      store.SetUserData(userData);
+      store.SetAccessToken(token)
+      return { success: true, msg: 'User  Authenticated', account: userData.account};
+    } else {
+      throw {success: false, res}
+    }    
   } catch (err) {
-    console.log(err);
+    console.log(err)
+    if (err?.res?.status == 404) {
+      return {success: false, msg: 'No Profile For User', account: 'none', erType: 100}
+    }
+    return { success: false, msg: 'Error Occured Try Again', account: 'none', erType: 101 };
   }
 };
 
 export const AuthHandlerMini = async (id) => {
   let nuxt = useNuxtApp();
-  store = useLoungeStore();
+  store = useHiveStore();
   let crud = nuxt.$crud;
   try {
     store.SetActiveUser(id, true);

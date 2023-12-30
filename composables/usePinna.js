@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 
-export const useLoungeStore = defineStore({
-  id: 'lounge-store',
+export const useHiveStore = defineStore({
+  id: 'hive-store',
   state: () => {
     return {
       accountType: '',
       activeUser: '',
       userData: {},
       systemLanguage: '',
+      accessToken: '',
       routeState: '',
       countries: [
         'Afghanistan',
@@ -594,6 +595,9 @@ export const useLoungeStore = defineStore({
     SetSystemLang(data) {
       this.systemLanguage = data;
       localStorage.setItem('systemLang', data);
+    },
+    SetAccessToken(token) {
+      this.accessToken = token;
     },
     SetAccountType(data) {
       this.userData = data;

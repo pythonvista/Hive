@@ -39,12 +39,12 @@ import {
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const firebaseConfig = {
-    apiKey: 'AIzaSyDXmRG0FHQUENdNt69IBUBvPELBsoxeZVE',
-    authDomain: 'hive-3fea4.firebaseapp.com',
-    projectId: 'hive-3fea4',
-    storageBucket: 'hive-3fea4.appspot.com',
-    messagingSenderId: '724300980315',
-    appId: '1:724300980315:web:2e49f38c9f98dac22b5f7e',
+    apiKey: "AIzaSyBMZZb1Di7KqokWZiyOqSyjqW1AZncgrok",
+    authDomain: "hive-d0d95.firebaseapp.com",
+    projectId: "hive-d0d95",
+    storageBucket: "hive-d0d95.appspot.com",
+    messagingSenderId: "452862083132",
+    appId: "1:452862083132:web:40db55ecec4fcacf4f8339"
   };
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
