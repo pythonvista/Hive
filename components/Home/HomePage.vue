@@ -1,6 +1,10 @@
 <template>
-    <div class="">
+    <div class="px-3 pb-20">
         <UtilsMainSlider></UtilsMainSlider>
+       <UtilsLocationSlider></UtilsLocationSlider>
+       <UtilsAgentsSlider></UtilsAgentsSlider>
+       <UtilsFeaturedGrid></UtilsFeaturedGrid>
+       <UtilsAgencySlider></UtilsAgencySlider>
     </div>
 </template>
 
@@ -10,6 +14,4 @@ export default {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

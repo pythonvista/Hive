@@ -6,24 +6,24 @@
       <slot />
       <UtilsFooter v-if="!activeUser"></UtilsFooter>
     </div>
-    <v-bottom-navigation v-model="value" color="purple" >
-      <v-btn>
+    <v-bottom-navigation v-if="activeUser" v-model="value" color="purple" >
+      <v-btn :to="{path: '/'}">
         <q-icon size="20px" name="home"></q-icon>
 
         <span>Home</span>
       </v-btn>
-      <v-btn>
+      <v-btn :to="{ path: 'search' }">
           <q-icon size="20px" name="search"></q-icon>
 
           <span>Search</span>
         </v-btn>
-      <v-btn>
+      <v-btn :to="{ path: '/feeds' }">
          <q-icon size="20px" name="dynamic_feed"></q-icon>
 
         <span>Feeds</span>
       </v-btn>
 
-      <v-btn>
+      <v-btn :to="{ path: '/message' }">
          <q-icon size="20px" name="message"></q-icon>
 
         <span>Message</span>

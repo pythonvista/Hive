@@ -1,6 +1,6 @@
 <template>
-    <div class=" px-2 py-3">
-        <swiper :pagination="{
+    <div class=" py-3">
+        <swiper :space-between="10" :pagination="{
             dynamicBullets: true,
         }" :modules="modules" class="mySwiper">
             <swiper-slide v-for="i in 20" :key="i" class="overflow-hidden rounded-md   ">
