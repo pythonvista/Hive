@@ -2,7 +2,11 @@
 
 export default defineNuxtConfig({
   ssr: true,
-
+  router: {
+    options: {
+      scrollBehaviorType: 'smooth'
+    }
+  },
   app: {
     head: {
       title: 'HIVE',
@@ -75,6 +79,7 @@ export default defineNuxtConfig({
   plugins: [
     { src: '~/plugins/useVuetify.js', mode: 'client' },
     { src: '~/plugins/useBus.js', mode: 'client' },
+     { src: '~/plugins/scrollToTop.js', mode: 'client' },
   ],
 
   css: ['vuetify/lib/styles/main.sass'],
