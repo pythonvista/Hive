@@ -5,32 +5,32 @@
       <UtilsNavigator :Signout="Signout" class=""></UtilsNavigator>
       <slot />
       <UtilsFooter v-if="!activeUser"></UtilsFooter>
-    </div>
-    <v-bottom-navigation v-if="activeUser" v-model="value" color="purple" >
-      <v-btn @click="$router.push({path: '/'})" :to="{path: '/'}">
-        <q-icon size="20px" name="home"></q-icon>
+       <v-bottom-navigation v-if="activeUser" v-model="value" color="purple" >
+        <v-btn @click="$router.push({ path: '/' })" :to="{ path: '/' }">
+          <q-icon size="20px" name="home"></q-icon>
 
-        <span>Home</span>
-      </v-btn>
-      <v-btn @click="$router.push({ path: '/search' })">
-          <q-icon size="20px" name="search"></q-icon>
-
-          <span>Search</span>
+          <span>Home</span>
         </v-btn>
-      <v-btn @click="$router.push({path: '/feeds'})">
-         <q-icon size="20px" name="dynamic_feed"></q-icon>
+        <v-btn @click="$router.push({ path: '/search' })">
+            <q-icon size="20px" name="search"></q-icon>
 
-        <span>Feeds</span>
-      </v-btn>
+            <span>Search</span>
+          </v-btn>
+        <v-btn @click="$router.push({ path: '/feeds' })">
+           <q-icon size="20px" name="dynamic_feed"></q-icon>
 
-      <v-btn >
-         <q-icon size="20px" name="message"></q-icon>
+          <span>Feeds</span>
+        </v-btn>
 
-        <span>Message</span>
-      </v-btn>
+        <v-btn to="/chats">
+           <q-icon size="20px" name="message"></q-icon>
+
+          <span>Message</span>
+        </v-btn>
 
       
-    </v-bottom-navigation>
+      </v-bottom-navigation>
+    </div>
   </v-layout>
 </template>
 
