@@ -14,8 +14,8 @@
             <TabPanels>
                 <TabPanel>
                     <q-list>
-                        <q-item :class="{ 'border-t-2': i == 0 }" class="border-b-2  " bordered v-for="i in 10" :key="i"
-                            clickable v-ripple>
+                        <q-item @click="sheet = true" :class="{ 'border-t-2': i == 0 }" class="border-b-2  " bordered
+                            v-for="i in 10" :key="i" clickable v-ripple>
                             <q-item-section avatar>
                                 <q-avatar>
                                     <img
@@ -78,11 +78,11 @@
         <q-dialog v-model="isOpen">
             <q-card class="my-card">
                 <q-img src="https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-2.png" />
-               
+
 
 
                 <q-card-section>
-                    <q-btn  color="primary" icon="account_circle" size="10px" class="absolute"
+                    <q-btn color="primary" icon="account_circle" size="10px" class="absolute"
                         style="top: 0; right: 12px; transform: translateY(-50%);" />
 
                     <div class="row no-wrap items-center">
@@ -112,6 +112,62 @@
                 </q-card-actions>
             </q-card>
         </q-dialog>
+        <q-dialog v-model="sheet" persistent :maximized="true" transition-show="slide-up" transition-hide="slide-down">
+            <q-card class="bg-white relative text-black">
+                <q-card-section class="sticky top-0 left-0 w-full namecard z-[10] ">
+                    <q-list>
+                        <q-item clickable v-ripple>
+                            <div class="w-full flex justify-between">
+                                <q-item-section avatar>
+                                    <q-avatar>
+                                        <img
+                                            src="https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-5.png">
+                                    </q-avatar>
+                                </q-item-section>
+                                <q-item-section>
+                                    <div class="flex flex-col gap-1 justify-center items-start">
+                                        <p class="font-bold"> Dayo Abayomi</p>
+
+                                    </div>
+
+                                </q-item-section>
+                            </div>
+
+                            <q-btn round dense flat icon="close" v-close-popup>
+                                <q-tooltip class="bg-white text-primary">Close</q-tooltip>
+                            </q-btn>
+                        </q-item>
+                    </q-list>
+                </q-card-section>
+                <q-card-section class="q-pt-none pb-20">
+                    <div class="q-pa-md row  justify-center">
+                        <div style="width: 100%; max-width: 400px">
+                            <div v-for="(i, index) in messages" :key="index">
+                                <q-chat-message  :name="i.type"
+                                    :avatar="i.img" :sent="i.type == 'me' ? true : false"
+                                    :text="[i.message]" stamp="7 minutes ago" bg-color="amber-7" />
+                             
+                            </div>
+
+                        </div>
+                    </div>
+                </q-card-section>
+
+                <div class="w-full fixed bottom-0 left-0 z-[1] bg-white">
+                    <label for="" class="sr-only"> Search </label>
+                    <div class="relative">
+                        <div class="absolute z-10 inset-y-0 right-0 flex items-center pr-4 ">
+
+                            <q-btn :disable="!message" @click="SendMessage" dense flat color="blue" round icon="send"></q-btn>
+                        </div>
+
+                        <input v-model="message" type="search" name="" id=""
+                            class="border block w-full py-4 pl-10 border-gray-300 rounded-lg focus:ring-indigo-600 focus:border-indigo-600 sm:text-sm"
+                            placeholder="Message" />
+                    </div>
+                </div>
+            </q-card>
+        </q-dialog>
     </div>
 </template>
 
@@ -137,7 +193,13 @@ export default {
     data: () => ({
         selectedTab: 0,
         isOpen: false,
-        stars: 4
+        stars: 4,
+        sheet: false,
+        message: '',
+        messages: [
+            { message: 'Hi wetin dey nah', img: 'https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-3.png', type: 'me' },
+            { message: 'I just dey o', img: 'https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-5.png', type: 'Dayo Abayomi' }
+        ]
     }),
     methods: {
         changeTab(e) {
@@ -147,6 +209,15 @@ export default {
         setIsOpen(value) {
             console.log(value)
             this.isOpen = value
+        },
+        SendMessage() {
+            this.messages.push({ message: this.message, img: 'https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-3.png', type: 'me', })
+            this.message = ''
+            ShowSnack('Sent!', 'positive')
+            setTimeout(() => {
+                this.messages.push({ message: 'lorem ipisum anddndd', img: 'https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-5.png', type: 'Dayo Abayomi', })
+                 ShowSnack('New Message!', 'positive')
+            },3000)
         }
     },
     setup() {
@@ -158,6 +229,11 @@ export default {
 </script>
 
 <style scoped>
+.namecard {
+    background: rgba(255, 255, 255, 0.077);
+    backdrop-filter: blur(5px);
+}
+
 button {
     padding: .7em 3em;
     transition: .3s;
