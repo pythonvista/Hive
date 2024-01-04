@@ -1,8 +1,8 @@
 <template>
-  <v-layout class="overflow-hidden">
+  <v-layout>
     <UtilsLoader v-if="loader"></UtilsLoader>
     <div v-else class="h-screen w-full bg-gray-50 relative home_wrap">
-      <UtilsNavigator :Signout="Signout" class="sticky top-0 left-0"></UtilsNavigator>
+      <UtilsNavigator :Signout="Signout" class=""></UtilsNavigator>
       <slot />
       <UtilsFooter v-if="!activeUser"></UtilsFooter>
     </div>
@@ -102,8 +102,30 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .home_wrap {
   overflow-y: scroll !important;
 }
-</style>
+
+.page-left-enter-active,
+.page-right-enter-active,
+.page-left-leave-active,
+.page-right-leave-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: all 150ms linear;
+}
+
+.page-left-enter-from, .page-right-leave-to {
+  transform: translateX(100%);
+}
+
+.page-left-leave-to, .page-right-enter-from {
+  transform: translateX(-100%);
+}
+
+.page-left-enter-to, .page-right-enter-to {
+  transform: translateX(0);
+}</style>

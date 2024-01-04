@@ -43,6 +43,9 @@ export default {
         Swiper,
         // SwiperSlide,
     },
+    data: () => ({
+        model: 4
+    }),
     setup() {
         return {
             modules: [Pagination],

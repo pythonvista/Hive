@@ -2,7 +2,7 @@
     <div class=" py-3">
         <p class="text-2xl my-2 font-bold">Top Agents</p>
         <swiper :slidesPerView="2" :spaceBetween="10" :modules="modules" class="mySwiper">
-            <swiper-slide v-for="i in 20" :key="i" class="py-1">
+            <swiper-slide v-for="i in 5" :key="i" class="py-1">
                 <div
                     class="relative flex justify-center items-center  px-2 py-7 flex-col w-full overflow-hidden bg-gray-100 shadow group rounded-2xl">
                     <q-avatar size="8rem">
@@ -35,6 +35,9 @@ import 'swiper/css/pagination';
 
 
 export default {
+    data: () => ({
+        model: 4   
+    }),
     components: {
         Swiper,
         // SwiperSlide,
