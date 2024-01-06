@@ -42,7 +42,7 @@ export const apiClient = async (route, method, body) => {
 
 function FetchApi() {
   this.url = "https://hiveapi.emeterr.com/api/v1"
-  // this.url = "http://127.0.0.1:8000/api/v1"
+  // this.url = "http://localhost:8000/api/v1"
   // this.url = "http://192.168.239.156:8000/api/v1"
   this.get = async (route, headers = {}) => {
     console.log(headers)

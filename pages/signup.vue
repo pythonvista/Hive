@@ -322,7 +322,7 @@ export default {
           delete this.dform['password']
           this.dform.id = res.user.uid
           this.dform.account = this.type
-          const res2 = await UseFetch.post(`/users`, this.dform, { "Authorization": res.user.accessToken })
+          const res2 = await UseFetch.post(`/client`, this.dform, { "Authorization": res.user.accessToken })
           if (res2.ok) {
             ShowSnack('Registration Complete', 'positive');
             this.$router.push({ path: '/' })
@@ -344,7 +344,7 @@ export default {
         delete this.dform['password']
         this.dform.id = uid
         this.dform.account = this.type
-        const res = await UseFetch.post(`/users`, this.dform, { "Authorization": session.currentUser.accessToken })
+        const res = await UseFetch.post(`/client`, this.dform, { "Authorization": session.currentUser.accessToken })
         if (res.ok) {
           ShowSnack('Profile Updated', 'positive')
           this.$router.push({ path: '/' })

@@ -5,7 +5,7 @@ export const AuthHandler = async (id, token) => {
   store = useHiveStore();
   try {
     
-    const res = await UseFetch.get(`/users/${id}`, { 'Authorization': token })
+    const res = await UseFetch.get(`/client/${id}`, { 'Authorization': token })
     const data = await res.json()
     console.log(data)
     if (res.ok) {
