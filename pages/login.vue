@@ -2,11 +2,11 @@
   <section class="py-12 bg-white sm:py-16 lg:py-20">
     <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
       <div class="max-w-sm mx-auto">
-        <div class="text-center">
-          <lord-icon :src="'https://cdn.lordicon.com/' + avatar" trigger="loop" colors="primary:#121331,secondary:#6f64f0"
+        <div  class="text-center">
+          <lord-icon v-if="$route.query.avatar" :src="'https://cdn.lordicon.com/' + avatar" trigger="loop" colors="primary:#121331,secondary:#6f64f0"
             style="width: 100px; height: 100px">
           </lord-icon>
-          <h1 class="mt-12 uppercase text-3xl font-bold text-gray-900">
+          <h1 v-if="$route.query.type" class="mt-12 uppercase text-3xl font-bold text-gray-900">
             <span class="capitalize">{{ type }}</span> Login
           </h1>
           <p class="mt-4 text-sm font-medium text-gray-500">
@@ -98,7 +98,8 @@ export default {
     },
     setup() {
       definePageMeta({
-        layout: 'home',
+        layout: 'auth',
+        middleware: ["auth"]
       });
     },
   }),
@@ -135,9 +136,6 @@ export default {
     if (this.$route.query.type && this.$route.query.avatar) {
       this.avatar = this.$route.query.avatar;
       this.type = this.$route.query.type;
-    } else {
-      ShowSnack('Missing Authentication Role!', 'negative');
-      this.$router.push({ path: '/' });
     }
   },
 };

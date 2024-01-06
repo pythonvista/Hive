@@ -73,15 +73,20 @@ export default {
     store = useHiveStore()
     nuxt = useNuxtApp()
     auth = nuxt.$authfunc
+    console.log(this.$route)
     onAuthStateChanged(auth.UserState(), async (user) => {
       this.loader = true
       if (user) {
+        
         const res = await AuthHandler(user.uid, user.accessToken)
         if (res.success && res.account != 'none') {
           this.loader = false
         } else {
           // show user error msg
           if (res.erType == 100) {
+            if (this.$route.path == '/signup' && this.$route.query?.continueReg == false) {
+              return
+            }
             ShowSnack('Profile Incomplete', 'negative')
             this.$router.push({ path: '/signup', query: { continueReg: true } })
             this.loader = false

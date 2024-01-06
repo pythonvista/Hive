@@ -2,9 +2,12 @@
   <section class="py-12 overflow-y-scroll bg-white sm:py-16 lg:py-20">
     <div class="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
       <div class="max-w-sm mx-auto">
-        <div class="flex flex-col text-center justify-center items-center gap-2" v-if="$route.query.continueReg">
-          <h1 class="mt-12 text-2xl font-bold text-gray-900">
+        <div class="flex flex-col text-center justify-center items-center gap-2">
+          <h1 v-if="$route.query.continueReg" class="mt-12 text-2xl font-bold text-gray-900">
             Lets Finish Setting Your Profile
+          </h1>
+          <h1 v-else class="mt-12 text-2xl font-bold text-gray-900">
+            Create Account
           </h1>
           <p class="mt-4 text-sm font-medium text-gray-500">
             Select an account type below
@@ -17,40 +20,9 @@
               { label: 'Landlord', value: 'Landlord' }
             ]" />
         </div>
-        <div v-else class="text-center">
-          <lord-icon :src="'https://cdn.lordicon.com/' + avatar" trigger="loop" colors="primary:#121331,secondary:#6f64f0"
-            style="width: 100px; height: 100px">
-          </lord-icon>
 
-          <h1 class="mt-12 text-3xl font-bold text-gray-900">
-            Create <span v-if="type == 'USER' || type == 'LANDLORD'">a </span>
-            <span v-else>an </span>
-            <span class="lowercase">{{ type }}</span> account
-          </h1>
-          <p class="mt-4 text-sm font-medium text-gray-500">
-            Say goodbye to the stress of finding the perfect place to stay.
-          </p>
-        </div>
 
-        <div v-if="type == 'USER' && !$route.query.continueReg" class="mt-12">
-          <button type="button"
-            class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900">
-            <img class="w-5 h-5 mr-2"
-              src="https://landingfoliocom.imgix.net/store/collection/clarity-dashboard/images/previews/sign-in/1/google-logo.svg"
-              alt="" />
-            Sign up with Google
-          </button>
-        </div>
-
-        <div v-if="type == 'USER' && !$route.query.continueReg" class="relative mt-6">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-200"></div>
-          </div>
-
-          <div class="relative flex justify-center">
-            <span class="px-2 text-sm text-gray-400 bg-white"> or </span>
-          </div>
-        </div>
+        
 
         <form action="#" method="POST" class="mt-12">
           <div class="space-y-4">
@@ -129,7 +101,7 @@
           </div>
         </form>
 
-        <div class="mt-6 text-center">
+        <div v-if="!$route.query.continueReg" class="mt-6 text-center">
           <p class="text-sm font-medium text-gray-900">
             Already have an account?
             <a @click="
@@ -140,7 +112,6 @@
               " title="" class="font-bold hover:underline">
               Login now
             </a>
-            {{ type }} {{ isValid }}
           </p>
         </div>
       </div>
@@ -171,7 +142,8 @@ export default {
   }),
   setup() {
     definePageMeta({
-      layout: 'home',
+      layout: 'auth',
+      middleware: ["auth"]
     });
   },
   computed: {
@@ -292,14 +264,16 @@ export default {
     },
 
   },
+  mounted() {
+    let session = auth.UserState()
+    this.CheckUser(session)
+  },
   created() {
     nuxt = useNuxtApp();
     store = useHiveStore()
     auth = nuxt.$authfunc;
     let session = auth.UserState()
-    if (store.userData?.id) {
-      this.$router.push({ path: '/' });
-    }
+    
     if (this.$route.query.type && this.$route.query.avatar) {
       this.avatar = this.$route.query.avatar;
       this.type = this.$route.query.type;
@@ -307,9 +281,6 @@ export default {
       this.dform.email = session?.currentUser?.email
       this.type = ''
       this.avatar = ''
-    } else {
-      ShowSnack('Missing Registration Role!', 'negative');
-      this.$router.push({ path: '/' });
     }
   },
   methods: {
@@ -354,6 +325,19 @@ export default {
         this.loading = false
         ShowSnack('Error Occured', 'negative')
       }
+    },
+    async CheckUser(session) {
+      try {
+        const res = await AuthHandler(session?.currentUser?.uid, session?.currentUser?.accessToken )
+        console.log(res)
+        if (res.success == true) {
+          this.$router.push({path: '/'})
+        }
+
+      } catch (err) {
+        console.log(err)
+      }
+
     }
   },
 };

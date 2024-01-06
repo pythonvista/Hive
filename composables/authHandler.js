@@ -7,7 +7,6 @@ export const AuthHandler = async (id, token) => {
     
     const res = await UseFetch.get(`/client/${id}`, { 'Authorization': token })
     const data = await res.json()
-    console.log(data)
     if (res.ok) {
       store.SetActiveUser(id, true);
       let userData = data.data
