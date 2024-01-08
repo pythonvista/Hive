@@ -1,6 +1,6 @@
 <template>
-  <section class="">
-    <p class="text-2xl my-2 font-bold">Top Apartments</p>
+  <section>
+    <p class="text-xl my-2 font-bold">Top Apartments in Iworoko</p>
     <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 houseGrid">
       <div
         v-for="i in 8"
