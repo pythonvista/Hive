@@ -1,6 +1,13 @@
 <template>
-    <div class=" py-3">
-        <p class="text-2xl my-2 font-bold">Popular Agency</p>
+    <div class="mt-4 py-3">
+       <div class="flex justify-between items-center">
+              <p class="font-bold text-lg text-slate-600">Popular Agencies</p>
+              <div>
+                 <q-btn color="blue" size="18px" flat icon="list"></q-btn>
+              </div>
+     
+
+            </div>
         <swiper :slidesPerView="1" :spaceBetween="10" :modules="modules" class="mySwiper">
             <swiper-slide v-for="i in 20" :key="i" class="py-1">
                 <div
