@@ -2,10 +2,11 @@
   <v-layout>
     <UtilsLoader v-if="loader"></UtilsLoader>
     <div v-else class="h-screen w-full bg-gray-50 relative home_wrap">
-      <UtilsNavigator :Signout="Signout" class=""></UtilsNavigator>
+      <UtilsNavigator v-if="!viewMini" :Signout="Signout" class=""></UtilsNavigator>
+      <UtilsMinNavigator v-else></UtilsMinNavigator>
       <slot />
       <UtilsFooter v-if="!activeUser"></UtilsFooter>
-       <v-bottom-navigation v-if="activeUser" v-model="value" color="purple" >
+       <v-bottom-navigation  v-if="activeUser && !viewMini" v-model="value" color="purple" >
         <v-btn @click="$router.push({ path: '/' })" :to="{ path: '/' }">
           <q-icon size="20px" name="home"></q-icon>
 
@@ -56,6 +57,12 @@ export default {
     }
   },
   computed: {
+    viewMini() {
+      if (this.$route.path == '/' || this.$route.path == '/feeds' || this.$route.path == '/search' || this.$route.path == '/chat') {
+        return false
+      }
+      return true
+    },
     activeUser() {
       return store.activeUser
     },
