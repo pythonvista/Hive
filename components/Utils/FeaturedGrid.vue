@@ -7,7 +7,10 @@
         :key="i"
         class="relative flex h-[250px] p-1 flex-col w-full overflow-hidden bg-gray-100 shadow group rounded-2xl"
       >
-        <div class="rounded-2xl relative h-[75%] overflow-hidden">
+        <div
+          class="rounded-2xl relative h-[75%] overflow-hidden"
+          @click="$router.push({ path: '/view_property' })"
+        >
           <div class="absolute top-2 z-[1] right-2">
             <q-btn round size="9px" outline color="red" icon="favorite"></q-btn>
           </div>
