@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-3">
+  <section class="mt-3 bg-white p-3 mb-4 rounded-md shadow-md">
     <div class="flex items-center justify-between mb-4">
       <h2 class="text-xl font-bold">Key Details</h2>
       <p class="text-xs font-semibold text-slate-600">
@@ -61,11 +61,11 @@
           <p class="text-sm font-semibold">Free Wifi</p>
         </div>
         <div class="flex justify-center gap-2 items-center flex-col">
-          <q-btn round size="9px" outline color="red" icon="food"></q-btn>
+          <q-btn round size="9px" outline color="red" icon="restaurant"></q-btn>
           <p class="text-sm font-semibold">Restraurant</p>
         </div>
         <div class="flex justify-center gap-2 items-center flex-col">
-          <q-btn round size="9px" outline color="red" icon="bar"></q-btn>
+          <q-btn round size="9px" outline color="red" icon="local_bar"></q-btn>
           <p class="text-sm font-semibold">Bar</p>
         </div>
         <div class="flex justify-center gap-2 items-center flex-col">

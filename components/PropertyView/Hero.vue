@@ -1,6 +1,6 @@
 <template>
   <section class="py-3">
-    <div class="h-80 relative">
+    <div class="h-80   overflow-hidden relative">
       <img
         v-for="(image, index) in images"
         :key="index"
@@ -8,10 +8,13 @@
           'opacity-100': currentIndex === index,
           'opacity-0': currentIndex !== index,
         }"
-        class="rounded-lg h-full absolute inset-0 transition-opacity duration-300"
+        class="rounded-lg h-full shadow-lg absolute inset-0 transition-opacity duration-300"
         :src="image.src"
         alt=""
       />
+      <div class="bg-slate-300 border-2 border-blue-300 border-solid absolute bottom-8 left-2 px-3 py-1 shadow-md rounded-md">
+        <p>Grace Hostel</p>
+      </div>
       <div class="pagination">
         <span
           v-for="(image, index) in images"

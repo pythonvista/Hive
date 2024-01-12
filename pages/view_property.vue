@@ -1,8 +1,9 @@
 <template>
-  <section class="px-3 pt-3 pb-5">
+  <section class="px-3 bg-slate-100 pt-3 pb-5">
     <property-view-hero></property-view-hero>
     <property-view-about-property></property-view-about-property>
     <property-view-gallery></property-view-gallery>
+    <property-view-property-location :coords="[7.7152008, 5.2575367]" :location="'Comfort Hostel Osekita'"></property-view-property-location>
     <property-view-agent-contact></property-view-agent-contact>
     <property-view-property-details></property-view-property-details>
     <property-view-review></property-view-review>

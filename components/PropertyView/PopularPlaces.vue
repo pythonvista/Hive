@@ -10,7 +10,7 @@
     <div class="border border-solid p-2 rounnded-lg">
       <div class="flex items-center gap-2">
         <div class="w-1/4 h-16">
-          <img class="border border-solid h-full w-full" src="" alt="" />
+          <img class="border border-solid h-full w-full" src="https://i.imgur.com/Ulhs02P.jpg" alt="" />
         </div>
         <div>
           <span class="font-bold text-base">Ekiti state University</span>

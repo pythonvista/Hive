@@ -1,10 +1,10 @@
 <template>
   <section class="py-3">
-    <div class="border border-gray-300 border-solid p-6">
+    <div class="border bg-white rounded-md shadow-md border-gray-300 border-solid p-6">
       <h2 class="text-2xl my-5 font-bold">Contact to Agent</h2>
       <div class="flex items-center mb-5 gap-10">
         <img
-          src=""
+          src="https://landingfoliocom.imgix.net/store/collection/niftyui/images/team/8/member-5.png"
           alt=""
           class="border border-solid border-gray-600 rounded-full h-16 w-16"
         />

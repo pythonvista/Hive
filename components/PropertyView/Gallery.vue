@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <h2 class="text-2xl my-2 font-bold">Location</h2>
+    
   </section>
 </template>
 

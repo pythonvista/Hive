@@ -1,7 +1,7 @@
 <template>
-  <section class="">
-    <div class="flex items-center justify-between mb-2">
-      <h2 class="text-xl mb-4 font-bold">Review</h2>
+  <section class="shadow-md rounded-md review-bg px-3 py-4">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xl font-bold">Review</h2>
       <p class="text-sm font-normal text-red-400">View all Reviews</p>
     </div>
     <div class="flex items-center gap-5 mb-4">
@@ -100,6 +100,14 @@
       </div>
       <span class="text-base font-medium">5%</span>
     </div>
-    <hr class="w-full my-4" />
   </section>
 </template>
+
+<style scoped>
+.review-bg{
+  background: rgba(255, 255, 255, 0.202);
+  backdrop-filter: blur(5px);
+}
+
+</style>
+
