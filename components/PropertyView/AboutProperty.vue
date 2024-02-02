@@ -1,10 +1,17 @@
 <template>
-  <section class="bg-white  px-2 py-1 rounded-md">
+  <section class="bg-white px-2 py-1 rounded-md">
     <h2 class="text-2xl my-2 font-bold">Description</h2>
     <div class="flex items-center justify-between py-3">
       <div v-for="item in items" :key="item.label">
         <div class="flex items-center gap-1">
-          <q-btn square size="13px" color="black" flat round :icon="item.icon"></q-btn>
+          <q-btn
+            square
+            size="13px"
+            color="black"
+            flat
+            round
+            :icon="item.icon"
+          ></q-btn>
           <div class="flex flex-col">
             <span class="text-gray-500 text-sm font-medium">{{
               item.label

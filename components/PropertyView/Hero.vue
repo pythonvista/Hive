@@ -1,6 +1,6 @@
 <template>
   <section class="py-3">
-    <div class="h-80   overflow-hidden relative">
+    <div class="h-80 overflow-hidden relative">
       <img
         v-for="(image, index) in images"
         :key="index"
@@ -12,8 +12,12 @@
         :src="image.src"
         alt=""
       />
-      <div class="bg-slate-300 border-2 border-blue-300 border-solid absolute bottom-8 left-2 px-3 py-1 shadow-md rounded-md">
-        <p>Grace Hostel</p>
+      <div
+        class="absolute bottom-2 address px-6 py-[6px] text-white rounded-xl"
+      >
+        <p class="text-xs text-center font-medium">
+          Grace Hostel, Osekita, Iworoko Ekiti
+        </p>
       </div>
       <div class="pagination">
         <span
@@ -80,5 +84,11 @@ export default {
 .dot.active {
   background-color: red;
   width: 24px;
+}
+.address {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  background: rgba(0, 0, 0, 0.5);
 }
 </style>
