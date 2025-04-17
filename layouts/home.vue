@@ -11,7 +11,7 @@
       <slot />
       <UtilsFooter v-if="!activeUser"></UtilsFooter>
       <v-bottom-navigation
-        v-if="activeUser && !viewMini"
+       
         v-model="value"
         color="purple"
       >
