@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="pb-20 min-h-screen relative" v-if="isAuthenticated">
+        <div class="pb-20 min-h-screen relative" >
             <div class="q-pa-md h-full">
                 <q-infinite-scroll @load="onLoad" class="h-full">
                     <template v-slot:loading>
@@ -29,7 +29,7 @@
             </div>
 
         </div>
-        <UtilsLoader v-else></UtilsLoader>
+        <UtilsLoader ></UtilsLoader>
         <q-dialog v-model="sheet" persistent :maximized="true" transition-show="slide-up" transition-hide="slide-down">
             <q-card class="bg-white text-black">
                 <q-bar class="bg-black">

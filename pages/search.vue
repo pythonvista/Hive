@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="px-2 pt-4 pb-20" v-if="isAuthenticated">
+        <div class="px-2 pt-4 pb-20" >
             <div class="searchbox flex flex-col  justify-start gap-2 items-start rounded-md px-2 py-4 shadow-md">
                 <div class="w-full ">
                     <label for="" class="sr-only"> Search </label>
