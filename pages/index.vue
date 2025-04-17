@@ -29,9 +29,9 @@ export default {
     },
     isAuthenticated() {
       if (store.activeUser && store.userData.account) {
-        return true
+        return false
       }
-      return false
+      return true
     },
     Lang() {
       return store.systemLanguage;
